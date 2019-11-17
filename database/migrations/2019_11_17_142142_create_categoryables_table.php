@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoryableTable extends Migration
+class CreateCategoryablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCategoryableTable extends Migration
      */
     public function up()
     {
-        Schema::create('categoryable', function (Blueprint $table) {
+        Schema::create('categoryables', function (Blueprint $table) {
             $table->integer('category_id');
             $table->integer('categoryable_id');
             $table->string('categoryable_type');
@@ -27,6 +27,6 @@ class CreateCategoryableTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categoryable');
+        Schema::dropIfExists('categoryables');
     }
 }
