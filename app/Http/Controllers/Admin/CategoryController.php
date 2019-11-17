@@ -15,9 +15,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.categories.index', [
+            'categories' => Category::paginate(10)
+        ]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -25,9 +26,12 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create', [
+            'category'   => [],
+            'categories' => Category::with('children')->where('parent_id', '0')->get(),
+            'delimiter'  => ''
+        ]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -36,9 +40,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create($request->all());
+        return redirect()->route('admin.category.index');
     }
-
     /**
      * Display the specified resource.
      *
@@ -49,7 +53,6 @@ class CategoryController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -58,9 +61,12 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', [
+            'category'   => $category,
+            'categories' => Category::with('children')->where('parent_id', 0)->get(),
+            'delimiter'  => ''
+        ]);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -70,9 +76,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category->update($request->except('slug'));
+        return redirect()->route('admin.category.index');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -81,6 +87,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('admin.category.index');
     }
 }
