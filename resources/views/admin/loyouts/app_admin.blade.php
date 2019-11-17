@@ -44,14 +44,6 @@
                             <a class="dropdown-item" href="{{route('admin.article.index')}}">Материалы</a>
                         </div>
                     </div>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Управление пользователями
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="{{route('admin.user_managment.user.index')}}">Пользователи</a>
-                        </div>
-                    </div>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
