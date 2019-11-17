@@ -32,8 +32,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
-                    <li>
-                        <a href="{{ route('admin.index') }}">Панель Состояния</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ route('admin.index') }}">Панель Состояния</a>
                     </li>
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
