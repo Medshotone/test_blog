@@ -49352,7 +49352,6 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //CKEDITO
 
 
 $(document).ready(function () {
-  CKEDITOR.replace('description_short');
   CKEDITOR.replace('description');
 });
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
