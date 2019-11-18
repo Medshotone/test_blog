@@ -1,0 +1,104 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Comment;
+use App\Article;
+use Illuminate\Http\Request;
+
+class CommentController extends Controller
+{
+//    public function store_old(Request $request)
+//    {
+//        $comment = new Comment;
+//        $comment->body = $request->get('comment_body');
+//        $comment->user_name = $request->get('user_name');
+//        //on future, for create replies comments
+//        $comment->parent_id = 0;
+//        //dd($request->user());
+//        $comment->user()->associate($request->user());
+//        $article = Article::find($request->get('post_id'));
+//        $article->comments()->save($comment);
+//        return back();
+//    }
+
+    public function index()
+    {
+        $comments = Comment::all();
+
+        return response()->json($comments);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            //'user_name'  => 'required',
+            'body'       => 'required',
+            'article_id' => 'required',
+            'user_name' => [
+                function ($attribute, $value, $fail) {
+                    $tmp_value = explode(' ',$value);
+
+                    if (count($tmp_value) != 2) {
+                        $fail('Имя должно содержать два слова, оба с большой буквы');
+                    }elseif(!ctype_upper($tmp_value[1]{0})) {
+                        $fail('Имя должно содержать два слова, оба с большой буквы');
+                    }elseif(!ctype_upper($tmp_value[0]{0})){
+                        $fail('Имя должно содержать два слова, оба с большой буквы');
+                    }
+
+                }
+            ]
+        ]);
+
+        $all_request = $request->all();
+
+        $all_request = [
+            'user_name'        => $all_request['user_name'],
+            'user_id'          => 0,
+            'parent_id'        => 0,
+            'body'             => $all_request['body'],
+            'commentable_id'   => $all_request['article_id'],
+            'commentable_type' => 'App\Article',
+        ];
+        $comment = Comment::create($all_request);
+
+        return response()->json([
+            'message' => 'Great success! New comment created',
+            'comment' => $comment
+        ]);
+    }
+
+    public function show($id)
+    {
+        $comment = Comment::where('commentable_id', $id);
+        if ($comment->count() > 0) {
+            return $comment->get();
+        }
+        return response()->json(['message' => 'Comments Not Found'], 404);
+    }
+
+    public function update(Request $request, Comment $comment)
+    {
+        $request->validate([
+            'title' => 'nullable',
+            'description' => 'nullable'
+        ]);
+
+        $comment->update($request->all());
+
+        return response()->json([
+            'message' => 'Great success! Comment updated',
+            'comment' => $comment
+        ]);
+    }
+
+    public function destroy(Comment $comment)
+    {
+        $comment->delete();
+
+        return response()->json([
+            'message' => 'Successfully deleted comment!'
+        ]);
+    }
+}

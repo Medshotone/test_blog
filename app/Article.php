@@ -19,7 +19,14 @@ class Article extends Model
     public function categories(){
         return $this->morphToMany('App\Category','categoryable');
     }
+
     public function scopeLastArticles($query, $count){
         return $query->orderBy('created_at', 'desc')->take($count)->get();
     }
+
+    //Polymorphic relation wth Categories
+//    public function comments()
+//    {
+//        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
+//    }
 }
