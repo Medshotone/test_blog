@@ -3,25 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
-use App\Article;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class CommentControllerArticle extends Controller
 {
-//    public function store_old(Request $request)
-//    {
-//        $comment = new Comment;
-//        $comment->body = $request->get('comment_body');
-//        $comment->user_name = $request->get('user_name');
-//        //on future, for create replies comments
-//        $comment->parent_id = 0;
-//        //dd($request->user());
-//        $comment->user()->associate($request->user());
-//        $article = Article::find($request->get('post_id'));
-//        $article->comments()->save($comment);
-//        return back();
-//    }
-
     public function index()
     {
         $comments = Comment::all();
@@ -34,7 +19,7 @@ class CommentController extends Controller
         $request->validate([
             'body'       => 'required',
             'article_id' => 'required',
-            'user_name' => [
+            'user_name'  => [
                 function ($attribute, $value, $fail) {
                     $tmp_value = explode(' ',$value);
 
@@ -70,7 +55,10 @@ class CommentController extends Controller
 
     public function show($id)
     {
-        $comment = Comment::where('commentable_id', $id);
+        $comment = Comment::where(
+            ['commentable_id' => $id],
+            ['commentable_type' => 'App\Article']
+        );
         if ($comment->count() > 0) {
             return $comment->get();
         }
@@ -80,7 +68,7 @@ class CommentController extends Controller
     public function update(Request $request, Comment $comment)
     {
         $request->validate([
-            'title' => 'nullable',
+            'title'       => 'nullable',
             'description' => 'nullable'
         ]);
 

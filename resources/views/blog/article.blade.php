@@ -22,7 +22,7 @@
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: '{{ route("comment.show", ["article" => "{$article->id}"]) }}',
+            url: '{{ route("comment.article.show", ["article" => "{$article->id}"]) }}',
             type: 'GET',
             dataType: 'json',
             success: function (json) {
@@ -40,7 +40,7 @@
       </script>
       <hr />
       <h4>Add comment</h4>
-      <form id="article-comment" method="post" action="{{route('comment.store')}}">
+      <form id="article-comment" method="post" action="{{route('comment.article.store')}}">
         @csrf
         <div class="form-group">
           <input type="text" name="user_name" class="form-control" placeholder="ФИО" />
