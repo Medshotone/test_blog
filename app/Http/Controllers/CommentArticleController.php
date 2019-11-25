@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Comment;
 use Illuminate\Http\Request;
 
-class CommentControllerArticle extends Controller
+class CommentArticleController extends Controller
 {
     public function index()
     {
