@@ -56,7 +56,7 @@ class CommentControllerArticle extends Controller
     public function show($id)
     {
         $comment = Comment::where(
-            ['commentable_id' => $id],
+            ['commentable_id'   => $id],
             ['commentable_type' => 'App\Article']
         );
         if ($comment->count() > 0) {
