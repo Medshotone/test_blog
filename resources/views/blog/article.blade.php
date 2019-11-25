@@ -16,8 +16,6 @@
       <div id="article-comments">No comments</div>
       <script type="application/javascript">
         //comment ajax load
-
-        document.addEventListener("DOMContentLoaded", function(event) {
           $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -36,11 +34,10 @@
               $('#article-comments').html(html);
             }
           });
-        });
       </script>
       <hr />
       <h4>Add comment</h4>
-      <form id="article-comment" method="post" action="{{route('comment.article.store')}}">
+      <form id="add-comment" method="post" action="{{route('comment.article.store')}}">
         @csrf
         <div class="form-group">
           <input type="text" name="user_name" class="form-control" placeholder="ФИО" />

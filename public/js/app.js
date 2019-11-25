@@ -49380,7 +49380,7 @@ $(document).ready(function () {
   } //article form submit event
 
 
-  $('form#article-comment').submit(function (e) {
+  $('form#add-comment').submit(function (e) {
     e.preventDefault();
     $.ajax({
       url: $(this).attr('action'),
