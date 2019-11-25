@@ -17,11 +17,15 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::get('/comments', 'CommentController@index')->name('comment.all');
+//article comments
+Route::get('/comments/article', 'CommentControllerArticle@index')->name('comment.article.all');
+Route::post('/comments/article', 'CommentControllerArticle@store')->name('comment.article.store');
+Route::get('/comments/article/{article}', 'CommentControllerArticle@show')->name('comment.article.show');
 
-Route::post('/comments', 'CommentController@store')->name('comment.store');
-
-Route::get('/comments/article/{article}', 'CommentController@show')->name('comment.show');
+//category comments
+Route::get('/comments/category', 'CommentControllerCategory@index')->name('comment.category.all');
+Route::post('/comments/category', 'CommentControllerCategory@store')->name('comment.category.store');
+Route::get('/comments/category/{category}', 'CommentControllerCategory@show')->name('comment.category.show');
 
 Route::put('/comments/{comment}', 'CommentController@update')->name('comment.update');
 
