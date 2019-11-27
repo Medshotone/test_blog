@@ -174,6 +174,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\BrowserServiceProvider::class,
+
+        // Our packages
+        Unisharp\Ckeditor\ServiceProvider::class,
 
     ],
 
